@@ -17,7 +17,7 @@
   </div>
   <div class="footer">
     <router-link to="/admin">Monster Editor</router-link>
-    <p>Github: <a href="https://github.com/neilsduncan/CS260-CreativeP4.git"> here</a></p>
+    <p>Github: <a href="https://github.com/neilsduncan/CS260-CreativeProject4.git"> here</a></p>
     <p>Copyrighted content used for educational purposes.</p>
   </div>
 </div>
