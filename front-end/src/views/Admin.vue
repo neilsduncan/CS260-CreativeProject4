@@ -95,7 +95,7 @@ this.getItems();
         this.getItems();
         return true;
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     },
 
@@ -106,7 +106,7 @@ this.getItems();
         this.getItems();
         return true;
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     },
       selectItem(item) {
@@ -119,7 +119,7 @@ this.getItems();
     this.items = response.data;
     return true;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 },
 
@@ -140,7 +140,7 @@ this.getItems();
           this.addItem = r2.data;
 
         } catch (error) {
-          console.log(error);
+         // console.log(error);
         }
       },
     }
