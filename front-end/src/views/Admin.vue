@@ -1,45 +1,54 @@
 <template>
 <div class="admin">
-  <h1>The Admin Page!</h1>
+  <h1>Monster Editor</h1>
     <div class="heading">
       <div class="circle">1</div>
-      <h2>Add an Item</h2>
+      <h2>Add a Creature</h2>
     </div>
     <div class="add">
+      <div class="upload" v-if="addItem">
+        <h2>{{addItem.title}} CR: {{addItem.cr}}</h2>
+        <img :src="addItem.path" />
+        <p>- {{addItem.descript}}</p>
+      </div>
+
       <div class="form">
         <input v-model="title" placeholder="Title">
+        <input v-model="cr" placeholder="Challenge Rating">
         <input v-model="descript" placeholder="Descript">
         <p></p>
-        <input type="file" name="photo" @change="fileChanged">
-        <button @click="upload">Upload</button>
+        <input type="file" name="photo" @change="fileChanged" class="rounded">
+        <button @click="upload" class="rounded">Upload</button >
       </div>
-      <div class="upload" v-if="addItem">
-        <h2>{{addItem.title}}</h2>
-        <img :src="addItem.path" />
-      </div>
+
+
     </div>
     <div class="heading">
       <div class="circle">2</div>
-      <h2>Edit/Delete an Item</h2>
+      <h2>Edit/Delete an Creature</h2>
     </div>
     <div class="edit">
+      <div class="upload" v-if="findItem">
+        <input v-model="findItem.title">
+        <input v-model="findItem.cr" >
+        <input v-model="findItem.descript" >
+        <p></p>
+        <img :src="findItem.path" />
+      </div>
+
       <div class="form">
-        <input v-model="findTitle" placeholder="Search">
+        <input class="rounded" v-model="findTitle" placeholder="Search">
         <div class="suggestions" v-if="suggestions.length > 0">
           <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.title}}
           </div>
         </div>
+        <div class="actions" v-if="findItem">
+          <button @click="deleteItem(findItem)" class="rounded3">Delete</button>
+          <button @click="editItem(findItem)" class="rounded2">Edit</button>
+        </div>
       </div>
-      <div class="upload" v-if="findItem">
-        <input v-model="findItem.title">
-          <input v-model="findItem.descript" >
-        <p></p>
-        <img :src="findItem.path" />
-      </div>
-      <div class="actions" v-if="findItem">
-        <button @click="deleteItem(findItem)">Delete</button>
-        <button @click="editItem(findItem)">Edit</button>
-      </div>
+
+
     </div>
 </div>
 </template>
@@ -54,6 +63,7 @@ export default {
       return {
         title: "",
         descript: "",
+        cr:"",
         file: null,
         addItem: null,
         findTitle: "",
@@ -78,6 +88,7 @@ this.getItems();
       try {
         await axios.put("/api/items/" + item._id, {
           title: this.findItem.title,
+          cr: this.findItem.cr,
           descript: this.findItem.descript,
         });
         this.findItem = null;
@@ -122,6 +133,7 @@ this.getItems();
           let r1 = await axios.post('/api/photos', formData);
           let r2 = await axios.post('/api/items', {
             title: this.title,
+            cr: this.cr,
             descript: this.descript,
             path: r1.data.path
           });
@@ -195,8 +207,33 @@ button {
   font-size: 1em;
 }
 
+button {
+  margin-top: 4px;
+
+}
+
+.rounded {
+  border-radius: 8px;
+}
+
+.rounded2 {
+  margin-left: 12px;
+  border-radius: 8px;
+}
+
+.rounded3 {
+  margin-top: 32px;
+  border-radius: 8px;
+}
+
+input {
+  margin-top: 4px;
+  display: block;
+}
+
 .form {
   margin-right: 50px;
+
 }
 
 /* Uploaded images */
@@ -206,5 +243,6 @@ button {
 
 .upload img {
   max-width: 300px;
+  margin-right: 32px;
 }
 </style>

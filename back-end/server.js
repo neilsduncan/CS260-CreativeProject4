@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
 const mongoose = require('mongoose');
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/museum', {
+mongoose.connect('mongodb://localhost:27017/monsterManual', {
   useNewUrlParser: true
 });
 
@@ -26,6 +26,7 @@ const upload = multer({
 // Create a scheme for items in the museum: a title and a path to an image.
 const itemSchema = new mongoose.Schema({
   title: String,
+  cr: String,
   descript: String,
   path: String,
 });
@@ -49,6 +50,7 @@ app.post('/api/photos', upload.single('photo'), async (req, res) => {
 app.post('/api/items', async (req, res) => {
   const item = new Item({
     title: req.body.title,
+    cr: req.body.cr,
     descript: req.body.descript,
     path: req.body.path,
   });
@@ -90,6 +92,7 @@ app.put('/api/items/:id', async (req, res) => {
       _id: req.params.id
     });
     item.title = req.body.title;
+    item.cr = req.body.cr;
     item.descript = req.body.descript;
     item.save();
     res.sendStatus(200);

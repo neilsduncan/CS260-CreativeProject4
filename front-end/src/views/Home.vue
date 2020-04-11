@@ -2,9 +2,15 @@
   <div class="home">
     <section class="image-gallery">
       <div class="image" v-for="item in items" :key="item.id">
-        <h2>{{item.title}}</h2>
-        <img :src="item.path" />
-        <p>-{{item.descript}}</p>
+        <h2>{{item.title}} CR: {{item.cr}}</h2>
+
+        <div class="horizontal">
+          <img :src="item.path" />
+          <div class="creatureText">
+          <p>-{{item.descript}}</p>
+        </div>
+        </div>
+
       </div>
     </section>
   </div>
@@ -41,6 +47,16 @@ methods: {
 </script>
 
 <style scoped>
+
+.creatureText{
+  padding-left: 16px;
+  width: 240px;
+}
+
+.horizontal{
+  display:inline-flex;
+}
+
 .image h2 {
   font-style: italic;
 }
@@ -53,11 +69,11 @@ methods: {
 }
 
 .image-gallery {
-  column-gap: 1.5em;
+  column-gap: 15.5em;
 }
 
 .image {
-  margin: 0 0 1.5em;
+  margin: 0 0 15.5em;
   display: inline-block;
   width: 100%;
 }
